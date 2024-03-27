@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8837430315113622629}
   - component: {fileID: 3986179646564468472}
+  - component: {fileID: 6441122021010891424}
   m_Layer: 0
   m_Name: Enemy 2
   m_TagString: Untagged
@@ -24,6 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8837430315113622628}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
   m_LocalPosition: {x: -6.65, y: -0.19999924, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 8864473458877901858}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3986179646564468472
 MonoBehaviour:
@@ -46,11 +47,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+--- !u!114 &6441122021010891424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837430315113622628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2be91081e91478da11bd323404da91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 1
+  MaxHp: 100
+  TakeDmg: 5
+  Dmg: 10
 --- !u!1001 &8837430317161297920
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8837430315113622629}
     m_Modifications:
     - target: {fileID: 117150395161187362, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
@@ -110,6 +128,9 @@ PrefabInstance:
       value: Cow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
 --- !u!4 &8864473458877901858 stripped
 Transform:

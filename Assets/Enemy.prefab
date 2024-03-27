@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5617428305632510509}
   - component: {fileID: 1135667376}
+  - component: {fileID: -8775124914081979631}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -24,6 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5617428305632510508}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.65, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 5500354066474998021}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1135667376
 MonoBehaviour:
@@ -46,11 +47,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+--- !u!114 &-8775124914081979631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5617428305632510508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2be91081e91478da11bd323404da91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 0
+  MaxHp: 50
+  TakeDmg: 10
+  Dmg: 2
 --- !u!1001 &5617428307302616359
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5617428305632510509}
     m_Modifications:
     - target: {fileID: 117150393779553013, guid: b8ed0a5acd3620a4880797b9941d64b6, type: 3}
@@ -117,7 +135,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunny
       objectReference: {fileID: 0}
+    - target: {fileID: 250127699055009285, guid: b8ed0a5acd3620a4880797b9941d64b6, type: 3}
+      propertyPath: Variations
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ed0a5acd3620a4880797b9941d64b6, type: 3}
 --- !u!4 &5500354066474998021 stripped
 Transform:
