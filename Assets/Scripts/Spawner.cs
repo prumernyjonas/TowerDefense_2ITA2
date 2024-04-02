@@ -6,6 +6,14 @@ using UnityEngine.UI;
 public class Spawner : MonoBehaviour
 {
     [System.Serializable]
+    public class Wave
+    {
+        public int enemyCount;
+        public int bossCount;
+        public float spawnInterval;
+    }
+
+    [System.Serializable]
     public class EnemyPrefabWithSpawnOnce
     {
         public GameObject enemyPrefab;
@@ -15,21 +23,20 @@ public class Spawner : MonoBehaviour
     }
 
     [SerializeField]
-    private List<EnemyPrefabWithSpawnOnce> enemyPrefabs;
-
+    private List<Wave> waves;
     [SerializeField]
-    private float spawnInterval;
+    private List<EnemyPrefabWithSpawnOnce> enemyPrefabs;
 
     [SerializeField]
     private Text waveText;
 
-    [SerializeField]
-    private string attackAnimationName = "Attack";
+ 
 
-    private int currentWaveIndex = 1;
-    private int enemiesSpawnedInCurrentWave = 0; // Proměnná pro sledování počtu spawnutých nepřátel v aktuální vlně
+    private int currentWaveIndex = 0;
+    private int enemiesSpawnedInCurrentWave = 0;
+    private int bossesSpawnedInCurrentWave = 0;
+    private bool isPaused = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnEnemyRoutine());
@@ -39,65 +46,68 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnInterval);
+            if (isPaused)
+            {
+                yield return new WaitForSeconds(5);
+                isPaused = false;
+                currentWaveIndex++;
+                enemiesSpawnedInCurrentWave = 0;
+                bossesSpawnedInCurrentWave = 0;
+                ResetHasSpawned(); // Resetování hodnoty hasSpawned pro všechny prefaby
+                UpdateWaveText();
+            }
+
+            if (currentWaveIndex < waves.Count)
+            {
+                Wave currentWave = waves[currentWaveIndex];
+                if (enemiesSpawnedInCurrentWave < currentWave.enemyCount || bossesSpawnedInCurrentWave < currentWave.bossCount)
+                {
+                    yield return new WaitForSeconds(currentWave.spawnInterval);
+                    SpawnEntity();
+                }
+                else
+                {
+                    isPaused = true;
+                }
+            }
+            else
+            {
+                yield break; // Ukončení cyklu, pokud nejsou k dispozici žádné další wavy
+            }
+        }
+    }
+    
+    private void SpawnEntity()
+    {
+        if (enemiesSpawnedInCurrentWave < waves[currentWaveIndex].enemyCount)
+        {
             SpawnEnemy();
         }
     }
 
     private void SpawnEnemy()
     {
-        if (enemyPrefabs.Count == 0)
-        {
-            Debug.LogError("No enemy prefabs assigned!");
-            return;
-        }
-
-        // Kontrola, zda byl dosažen limit pro první vlnu
-        if (currentWaveIndex == 0 && enemiesSpawnedInCurrentWave >= 30)
-        {
-            Debug.Log("First wave limit reached.");
-            return;
-        }
-
         EnemyPrefabWithSpawnOnce randomPrefab = GetRandomPrefab();
-
         if (randomPrefab != null)
         {
-            if (randomPrefab.spawnOnce && randomPrefab.hasSpawned)
-            {
-                Debug.Log("This enemy has already been spawned!");
-                return;
-            }
-
             GameObject newEnemy = Instantiate(randomPrefab.enemyPrefab, transform.position, Quaternion.identity);
-
             Animator enemyAnimator = newEnemy.GetComponent<Animator>();
-            if (enemyAnimator != null)
-            {
-                enemyAnimator.Play(attackAnimationName);
-            }
-            else
-            {
-                Debug.LogWarning("Animator component not found on enemy prefab.");
-            }
-
+            
             if (randomPrefab.spawnOnce)
             {
                 randomPrefab.hasSpawned = true;
             }
-
-            // Zvýšení počtu spawnutých nepřátel v aktuální vlně
             enemiesSpawnedInCurrentWave++;
-
-            // Aktualizace textu aktuální vlny
-            UpdateWaveText();
+        }
+        else
+        {
+            Debug.LogWarning("No available enemy prefabs.");
         }
     }
 
     private EnemyPrefabWithSpawnOnce GetRandomPrefab()
     {
         List<EnemyPrefabWithSpawnOnce> availablePrefabs = new List<EnemyPrefabWithSpawnOnce>();
-
         foreach (var prefab in enemyPrefabs)
         {
             if (!prefab.hasSpawned || !prefab.spawnOnce)
@@ -105,7 +115,6 @@ public class Spawner : MonoBehaviour
                 availablePrefabs.Add(prefab);
             }
         }
-
         if (availablePrefabs.Count > 0)
         {
             return availablePrefabs[Random.Range(0, availablePrefabs.Count)];
@@ -116,8 +125,23 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    private void ResetHasSpawned()
+    {
+        foreach (var prefab in enemyPrefabs)
+        {
+            prefab.hasSpawned = false;
+        }
+    }
+
     private void UpdateWaveText()
     {
-        waveText.text = "Wave " + (currentWaveIndex + 1);
+        if (currentWaveIndex < waves.Count)
+        {
+            waveText.text = "Wave " + (currentWaveIndex + 1);
+        }
+        else
+        {
+            waveText.text = "All waves completed.";
+        }
     }
 }

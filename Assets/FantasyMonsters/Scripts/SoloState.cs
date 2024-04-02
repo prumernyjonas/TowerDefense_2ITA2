@@ -3,24 +3,29 @@ using UnityEngine;
 
 namespace Assets.FantasyMonsters.Scripts
 {
-    /// <summary>
-    /// This animation script prevents all possible transitions to another states.
-    /// </summary>
     public class SoloState : StateMachineBehaviour
     {
         public bool Active;
         public Action Continue;
 
         private bool _enter;
+        private float _nextAttackTime;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetBool("Action", true);
             Active = true;
+           _nextAttackTime = Time.time + UnityEngine.Random.Range(1f, 5f);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            if (Time.time >= _nextAttackTime)
+            {
+                animator.SetBool("Action", true); // Zapnutí animace "Attack"
+                _nextAttackTime = Time.time + UnityEngine.Random.Range(1f, 5f);
+            }
+
             if (stateInfo.normalizedTime >= 1)
             {
                 OnStateExit(animator, stateInfo, layerIndex);

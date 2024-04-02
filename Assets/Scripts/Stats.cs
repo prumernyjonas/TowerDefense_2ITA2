@@ -6,13 +6,13 @@ public class Stats : MonoBehaviour
 {
 
     [SerializeField]
-    int Hp;
+    public int Hp;
     [SerializeField]
-    int MaxHp;
+    public int MaxHp;
     [SerializeField]
-    int TakeDmg;
+    public int TakeDmg;
     [SerializeField]
-    int Dmg;
+    public int Dmg;
     // Start is called before the first frame update
     void Start()
     {
