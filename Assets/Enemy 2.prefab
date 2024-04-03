@@ -127,22 +127,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cow
       objectReference: {fileID: 0}
-    - target: {fileID: 250127699055009285, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
-      propertyPath: Animator
-      value: 
-      objectReference: {fileID: 3087407050444197415}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5799633935812654631, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 117150395161187363, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3548020966543486464}
   m_SourcePrefab: {fileID: 100100000, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
---- !u!95 &3087407050444197415 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5799633935812654631, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
-  m_PrefabInstance: {fileID: 8837430317161297920}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8864473458877901858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 117150395161187362, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
   m_PrefabInstance: {fileID: 8837430317161297920}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8864473458877901859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117150395161187363, guid: ad29202c563f045489287cea7bf43fa1, type: 3}
+  m_PrefabInstance: {fileID: 8837430317161297920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3548020966543486464
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8864473458877901859}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d83f00811fa99453ca97bb490d3c58a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
